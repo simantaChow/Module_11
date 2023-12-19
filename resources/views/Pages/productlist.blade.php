@@ -35,11 +35,7 @@
                     @foreach($products as $product)
                     <tr class="whitespace-nowrap">
                         <td class="px-6 py-4 text-lg text-gray-500">
-                            @php
-                                for($i = 1; $i <$product->id ; $i++) {
-                                  echo $i;
-                                }
-                            @endphp
+                            {{$loop->iteration}}
                         </td>
                         <td class="px-6 py-4">
                             <div class="text-lg text-gray-900">
