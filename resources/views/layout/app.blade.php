@@ -12,8 +12,9 @@
 <div class="bg-gray-100 h-[900px] w-[1280px] m-auto">
     <h1 class="font-bold text-3xl text-center">Module-11 Assignment</h1>
 
-@yield('content')
-@yield('card')
+    @yield('content')
+    @yield('create_new_product')
+    @yield('product_list')
 
 </div>
 
