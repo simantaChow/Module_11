@@ -32,28 +32,39 @@
                     </tr>
                     </thead>
                     <tbody class="bg-white">
+                    @foreach($products as $product)
                     <tr class="whitespace-nowrap">
                         <td class="px-6 py-4 text-lg text-gray-500">
-                            1
+                            @php
+                                for($i = 1; $i <$product->id ; $i++) {
+                                  echo $i;
+                                }
+                            @endphp
                         </td>
                         <td class="px-6 py-4">
                             <div class="text-lg text-gray-900">
-                                Jon doe
+                                {{$product->name}}
                             </div>
                         </td>
                         <td class="px-6 py-4">
-                            <div class="text-lg text-gray-500">jhondoe@example.com</div>
+                            <div class="text-lg text-gray-500">{{$product->price}}</div>
                         </td>
                         <td class="px-6 py-4 text-lg text-gray-500">
-                            2021-1-12
+                            {{$product->qty}}
                         </td>
                         <td class="px-6 py-4">
-                            <a href="#" class="px-4 py-1 text-lg text-white bg-blue-400 rounded">Edit</a>
+                            <a href="{{route('product.showupdate',$product->id)}}" class="px-4 py-1 text-lg text-white bg-blue-400 rounded">Edit</a>
                         </td>
                         <td class="px-6 py-4">
-                            <a href="#" class="px-4 py-1 text-lg text-white bg-red-400 rounded">Delete</a>
+                            <form action="{{route('product.destroy',$product->id)}}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button class="px-4 py-1 text-lg text-white bg-red-400 rounded" type="submit">Delete</button>
+                            </form>
                         </td>
                     </tr>
+                    @endforeach
+
                     </tbody>
                 </table>
             </div>

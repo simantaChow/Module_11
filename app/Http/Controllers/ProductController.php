@@ -11,8 +11,8 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $product = DB::table('products')->get()->all();
-        return view('Pages.productlist', compact($product));
+        $products = DB::table('products')->get()->all();
+        return view('Pages.productlist', compact('products'));
     }
 
     public function create()
@@ -38,5 +38,33 @@ class ProductController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Products Insert Successfully');
+    }
+
+    public function showupdate($id)
+    {
+        $products = DB::table('products')->where('id',$id)->get();
+        return view('Pages.updateproduct', compact('products'));
+    }
+
+    public function update(Request $request,$id)
+    {
+            $this->validate($request, rules: array(
+                'name' => 'required|string|max:255',
+                'price' => 'required|integer',
+                'quantity' => 'required|integer',
+            ));
+
+            DB::table('products')->where('id',$id)->update([
+                'name' => $request->name,
+                'price' => $request->price,
+                'qty' => $request->quantity,
+            ]);
+            return redirect()->action([ProductController::class,'index']);
+    }
+
+    public function destroy($id)
+    : RedirectResponse {
+        DB::table('products')->where('id',$id)->delete();
+        return redirect()->action([ProductController::class,'index']);
     }
 }
